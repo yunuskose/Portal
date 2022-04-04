@@ -15,7 +15,7 @@ namespace IDCrm.Controllers
 {
     public class SiteController : Controller
     {
-
+          //Entitiy
         DatabaseEntities db = new DatabaseEntities();
 
         public ActionResult AnaSayfa()
