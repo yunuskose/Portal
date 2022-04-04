@@ -1,0 +1,142 @@
+﻿@model IDCrm.Models.Cariler
+@{
+    /**/
+
+    ViewBag.Title = "Musteri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="card">
+    <div class="card-header">Firma Bilgisi</div>
+    <div class="card-body">
+        <form class="needs-validation" novalidate action="@Url.Action("Cari","Site",null)" method="post">
+            <input type="hidden" name="id" value="@Model.ID" />
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Kod</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Kod" value="@Model.Kod" name="Kod" maxlength="4" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">İsim</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="İsim" value="@Model.Isim" name="Isim" maxlength="50" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Teknik Ekip E-Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Teknik Ekip Mail Adresi" value="@Model.TeknikEkipMailAdresi" name="TeknikEkipMailAdresi" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Firma Yetkilisi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Firma Yetkilisi" value="@Model.FirmaYetkilisi" name="FirmaYetkilisi">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Telefon</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Telefon" value="@Model.Telefon" name="Telefon">
+                </div>
+                <div class="col-md-9 mb-3">
+                    <label for="validationCustom02">Adres</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Adres" value="@Model.Adres" name="Adres">
+                </div>
+            </div>
+            <div class="form-row">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Kaydet</button>
+            <a href="@Url.Action("Cariler","Site",null)" class="btn  btn-outline-info">Listeye Geri Dön</a>
+        </form>
+
+        @if (Model.ID > 0)
+        {
+            string CariIlgiliKisiID = Convert.ToString(Request.QueryString["CariIlgiliKisiID"]);
+
+            IDCrm.Models.CariIlgiliKisiler ilgiliKisi = null;
+            if (CariIlgiliKisiID != "")
+            {
+                int cariIlgiliKisiID = Convert.ToInt32(CariIlgiliKisiID);
+                ilgiliKisi = Model.CariIlgiliKisilers.Where((e) => e.ID == cariIlgiliKisiID && Convert.ToBoolean(e.Silindi) == false).FirstOrDefault();
+            }
+            <hr />
+            <h5>İlgili Kişiler</h5>
+            <form class="needs-validation" novalidate action="@Url.Action("CariIlgiliKisiKaydet","Site",new { CariID = Model.ID })" method="post">
+                <input type="hidden"     name="ID" value="@(ilgiliKisi == null ? 0 : ilgiliKisi.ID)" />
+                <div class="form-row">
+
+                    <div class="coll-md-2 mb-2" style="padding:3px;">
+                        <input type="text" class="form-control" id="validationCustom02" name="Unvan" value="@(ilgiliKisi == null ? "" : ilgiliKisi.Unvan )" placeholder="Ünvan" required />
+                    </div>
+                    <div class="coll-md-3 mb-3" style="padding:3px;">
+                        <input type="text" class="form-control" id="validationCustom02" name="Ad" value="@(ilgiliKisi == null ? "" : ilgiliKisi.Ad )" placeholder="Ad" required />
+                    </div>
+                    <div class="coll-md-2 mb-2" style="padding:3px;">
+                        <input type="text" class="form-control" id="validationCustom02" name="Soyad" value="@(ilgiliKisi == null ? "" : ilgiliKisi.Soyad)" placeholder="Soyad" required />
+                    </div>
+                    <div class="coll-md-3 mb-3" style="padding:3px;">
+                        <input type="text" class="form-control" id="validationCustom02" name="Email" value="@(ilgiliKisi == null ? "" : ilgiliKisi.Email)" placeholder="E-Mail" required />
+                    </div>
+                    <div class="coll-md-1 mb-1" style="padding:3px;">
+                        <input type="text" class="form-control" id="validationCustom02" name="Telefon" value="@(ilgiliKisi == null ? "" : ilgiliKisi.Telefon )" placeholder="Telefon" />
+                    </div>
+                    <div class="coll-md-1 mb-1" style="padding:3px;">
+                        <button class="btn btn-primary" type="submit">Kaydet</button>
+                    </div>
+
+                </div>
+            </form>
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Ünvan</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>E-Mail</th>
+                        <th>Telefon</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CariIlgiliKisilers.Where((e) => Convert.ToBoolean(e.Silindi) == false))
+                    {
+                    <tr>
+                        <td>@item.Unvan</td>
+                        <td>@item.Ad</td>
+                        <td>@item.Soyad</td>
+                        <td>@item.Email</td>
+                        <td>@item.Telefon</td>
+                        <td><a href="@Url.Action("Cari","Site",new { id = item.CariID, CariIlgiliKisiID = item.ID })">Detay</a>| <a href="@Url.Action("CariIlgiliKisiSil","Site",new { CariID = item.CariID, id = item.ID })" onclick="return confirm('Silmek istediğinizden emin misiniz?')">Sil</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+
+
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();</script>
+    </div>
+</section>
+
+
+

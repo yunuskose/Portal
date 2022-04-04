@@ -1,0 +1,46 @@
+﻿@model List<IDCrm.Models.Cariler>
+@{
+    ViewBag.Title = "Kullanıcı Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (true)
+{
+    <section class="card">
+        <header class="card-header">
+            Müşteri Listesi
+            <a href="@Url.Action("Cari", "Site", new { id = 0 })" class="btn btn-sm btn-outline-info" style="position: absolute;right:10px;">Yeni Müşteri Tanımla</a>
+
+        </header>
+        <table class="table table-hover" id="dynamic-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kod</th>
+                    <th>İsim</th>
+                    <th>Teknik Ekip E-Mail</th>
+                    <th>Firma Yetkilisi</th>
+                    <th>Telefon</th>
+                    <th>Adres</th>
+                    <td>İşlem</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Kod</td>
+                        <td>@item.Isim</td>
+                        <td>@item.TeknikEkipMailAdresi</td>
+                        <td>@item.FirmaYetkilisi</td>
+                        <td>@item.Telefon</td>
+                        <td>@item.Adres</td>
+                        <td><a href="@Url.Action("Cari", "Site", new { id = item.ID })">Detay</a>| <a href="@Url.Action("CariSil", "Site", new { id = item.ID })" onclick="return confirm('Silmek istediğinizden emin misiniz?')">Sil</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+}

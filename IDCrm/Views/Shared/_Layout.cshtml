@@ -1,0 +1,336 @@
+﻿
+@using System.Data;
+@using IDCrm.Models;
+@{
+    IDCrm.Models.Kullanicilar kullanici = (IDCrm.Models.Kullanicilar)Session["Kullanici"];
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="@Url.Content("~/Content/img/favicon.png")">
+
+    <title>@System.Configuration.ConfigurationManager.AppSettings["SirketAdi1"]@System.Configuration.ConfigurationManager.AppSettings["SirketAdi2"]</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/bootstrap-reset.css")" rel="stylesheet">
+    <!--external css-->
+    <link href="@Url.Content("~/Content/assets/font-awesome/css/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css")" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/owl.carousel.css")" type="text/css">
+
+    <!--dynamic table-->
+    <link href="@Url.Content("~/Content/assets/advanced-datatable/media/css/demo_page.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/assets/advanced-datatable/media/css/demo_table.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/data-tables/DT_bootstrap.css")" />
+
+    <!--select 2-->
+    <link href="@Url.Content("~/Content/assets/select2/css/select2.min.css")" rel="stylesheet" type="text/css" />
+
+    <!--right slidebar-->
+    <link href="@Url.Content("~/Content/css/slidebars.css")" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/style-responsive.css")" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-fileupload/bootstrap-fileupload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-datepicker/css/datepicker.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-timepicker/compiled/timepicker.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-daterangepicker/daterangepicker-bs3.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-datetimepicker/css/datetimepicker.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/colorpicker/css/bootstrap-colorpicker.min.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/jquery-multi-select/css/multi-select.css")" />
+    <!--bootstrap switcher-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/bootstrap-switch/static/stylesheets/bootstrap-switch.css")" />
+    <!-- switchery-->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/assets/switchery/switchery.css")" />
+    <!--  summernote -->
+    <link href="@Url.Content("~/Content/assets/summernote/summernote-bs4.css")" rel="stylesheet">
+
+    <!--toastr-->
+    <link href="@Url.Content("~/Content/assets/toastr-master/toastr.css")" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <section id="container">
+        <!--header start-->
+        <header class="header white-bg">
+
+            <div class="sidebar-toggle-box">
+                <i class="fa fa-bars"></i>
+            </div>
+            <!--logo start-->
+            <a href="@Url.Action("AnaSayfa","Site",null)" class="logo">@System.Configuration.ConfigurationManager.AppSettings["SirketAdi1"]<span>@System.Configuration.ConfigurationManager.AppSettings["SirketAdi2"]</span></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <!--  notification end -->
+            </div>
+
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <li style="display:none;">
+                        <input type="text" class="form-control search" placeholder="Search">
+                    </li>
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="img/avatar1_small.jpg">
+                            <span class="username">@kullanici.Adi @kullanici.Soyadi</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout dropdown-menu-right">
+                            <div class="log-arrow-up"></div>
+                            <li>
+                                <a href="@Url.Action("ParolaDegistir","Site",null)">
+                                    <i class="fa fa-cog"></i>
+                                    Parola Değiştir
+                                </a>
+                            </li>
+                            <li><a href="@Url.Action("Cikis","Site",null)"><i class="fa fa-key"></i>Çıkış</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li>
+                        <a class="active" href="@Url.Content("~/Site/AnaSayfa")">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Ana Sayfa</span>
+                        </a>
+                    </li>
+
+                    <!--multi level menu start-->
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="active">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>İşlemler</span>
+                        </a>
+                        <ul class="sub">
+                            @if (kullanici.KullaniciYetkilers.Where((e) => e.Modul == "XXX" && e.Gor == true).Count() > 0)
+                            {
+                                <li><a href="@Url.Content("~/XXX/XX")">XXX</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <!--multi level menu start-->
+                    @if (kullanici.KullaniciYetkilers.Where((e) => e.Modul == "KullaniciListesi" && e.Gor == true).Count() > 0)
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;" class="active">
+                                <i class="fa fa-sort-numeric-asc"></i>
+                                <span>Tanımlamalar</span>
+                            </a>
+                            <ul class="sub">
+                                <li class="@(Request.RawUrl.StartsWith("/Site/Kullanicilar") ? "active" : "")"><a href="@Url.Content("~/Site/Kullanicilar")">Kullanıcı Listesi</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+
+                <div class="col-sm-12">
+                    @RenderBody()
+
+                </div>
+            </section>
+
+
+
+        </section>
+        <!--main content end-->
+
+    </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="@Url.Content("~/Content/js/jquery.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery-ui-1.9.2.custom.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap.bundle.min.js")"></script>
+    <script class="include" type="text/javascript" src="@Url.Content("~/Content/js/jquery.dcjqaccordion.2.7.js")" )"></script>
+    <script src="@Url.Content("~/Content/js/jquery.scrollTo.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery.nicescroll.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.sparkline.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js")"></script>
+    <script src="@Url.Content("~/Content/js/owl.carousel.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery.customSelect.min.js")"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/assets/advanced-datatable/media/js/jquery.dataTables.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/data-tables/DT_bootstrap.js")"></script>
+    <script src="@Url.Content("~/Content/js/respond.min.js")"></script>
+
+    <!--select2-->
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/select2/js/select2.min.js")"></script>
+
+    <!--right slidebar-->
+    <script src="@Url.Content("~/Content/js/slidebars.min.js")"></script>
+
+    <!--dynamic table initialization -->
+    <script src="@Url.Content("~/Content/js/dynamic_table_init.js")"></script>
+    <!--common script for all pages-->
+    <script src="@Url.Content("~/Content/js/common-scripts.js")"></script>
+
+    <!--script for this page-->
+    <script src="@Url.Content("~/Content/js/sparkline-chart.js")"></script>
+    <script src="@Url.Content("~/Content/js/easy-pie-chart.js")"></script>
+    <script src="@Url.Content("~/Content/js/count.js")"></script>
+
+    <!--this page plugins-->
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/fuelux/js/spinner.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-daterangepicker/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-daterangepicker/daterangepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/colorpicker/js/bootstrap-colorpicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/bootstrap-timepicker/js/bootstrap-timepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/jquery-multi-select/js/jquery.multi-select.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/assets/jquery-multi-select/js/jquery.quicksearch.js")"></script>
+    <!--summernote-->
+    <script src="@Url.Content("~/Content/assets/summernote/summernote-bs4.min.js")"></script>
+
+    <!--multiselect start + spinner + wysihtml5 scripts-->
+    <script src="@Url.Content("~/Content/js/advanced-form-components.js")"></script>
+    <!--pickers script-->
+    <script src="@Url.Content("~/Content/js/pickers/init-date-picker.js")"></script>
+    <script src="@Url.Content("~/Content/js/pickers/init-datetime-picker.js")"></script>
+    <script src="@Url.Content("~/Content/js/pickers/init-color-picker.js")"></script>
+    <!--bootstrap-switch-->
+    <script src="@Url.Content("~/Content/assets/bootstrap-switch/static/js/bootstrap-switch.js")"></script>
+    <!--bootstrap-switch-->
+    <script src="@Url.Content("~/Content/assets/switchery/switchery.js")"></script>
+
+    <!--toastr-->
+    <script src="@Url.Content("~/Content/assets/toastr-master/toastr.js")"></script>
+
+
+
+
+
+
+
+    <script>
+
+        //owl carousel
+
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true,
+                autoPlay: true
+
+            });
+        });
+
+        //custom select box
+
+        $(function () {
+            $('select.styled').customSelect();
+        });
+
+        //$(window).on("resize", function () {
+        //    var owl = $("#owl-demo").data("owlCarousel");
+        //    owl.reinit();
+        //});
+
+        $(document).ready(function () {
+            $('#TableTikla tr').click(function () {
+                if ($(this).attr('href') != null) {
+                    window.location = $(this).attr('href');
+                }
+                return false;
+            });
+        });
+
+    </script>
+    @RenderSection("Scripts", required: false)
+
+
+    <script type="text/javascript">
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("IDSortTable");
+            switching = true;
+            //Set the sorting direction to ascending:
+            dir = "asc";
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    //Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /*If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again.*/
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿@model IDCrm.Models.Kullanicilar
+@{
+    ViewBag.Title = "Musteri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="card">
+    <div class="card-header">Kullanıcı Bilgisi</div>
+    <div class="card-body">
+        <form class="needs-validation" novalidate action="@Url.Action("Kullanici","Site",null)" method="post">
+            <input type="hidden" name="id" value="@Model.ID" />
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Adı</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Adı" value="@Model.Adi" name="Adi" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Soyadı</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Soyadı" value="@Model.Soyadi" name="Soyadi" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3" >
+                    <label for="validationCustomUsername">Kullanıcı Adı</label>
+                    <input type="text" style="background-color:beige;" class="form-control" id="validationCustomUsername" placeholder="Kullanıcı Adı" value="@Model.Email" aria-describedby="inputGroupPrepend" name="Email" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustomUsername">Parola</label>
+                    <input type="text" style="background-color:beige;" class="form-control" id="validationCustomUsername" placeholder="Parola" value="@Model.Parola" aria-describedby="inputGroupPrepend" name="Parola" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustomUsername">Kişisel E-Mail</label>
+                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="Kişisel E-Mail" value="@Model.KisiselMail" aria-describedby="inputGroupPrepend" name="KisiselMail">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustomUsername">Aktif</label>
+                    <select name="Aktif" id="Aktif" class="form-control" style="background-color:orange;">
+                        <option value="1" @(Model.Aktif == true ? "selected" : "")>Aktif</option>
+                        <option value="0" @(Model.Aktif == false ? "selected" : "")>Pasif</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row" >
+
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustomUsername">Grubu</label>
+                    <select name="Grubu" id="Grubu" class="form-control" style="background-color:orange;">
+                        <option value="Yönetici" @(Model.Grubu == "Yönetici" ? "selected" : "")>Yönetici</option>
+                        <option value="Personel" @(Model.Grubu == "Personel" ? "selected" : "")>Personel</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3" style="display:none;">
+                    <label for="validationCustom02">Adres</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Adres" value="@Model.Adres" name="Adres">
+                </div>
+            </div>
+            <div class="form-row">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Kaydet</button>
+        </form>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();</script>
+    </div>
+</section>
+

@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GrupKodlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Anahtar" Type="nvarchar" MaxLength="100" />
+          <Property Name="Deger" Type="text" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Soyadi" Type="nvarchar" MaxLength="100" />
+          <Property Name="SirketTelefonu" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="100" />
+          <Property Name="Aktif" Type="bit" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="500" />
+          <Property Name="TC" Type="nvarchar" MaxLength="100" />
+          <Property Name="DogumTarihi" Type="datetime" />
+          <Property Name="KisiselTelefon" Type="nvarchar" MaxLength="100" />
+          <Property Name="SirketTelefonKisaKod" Type="nvarchar" MaxLength="100" />
+          <Property Name="Zimmet" Type="nvarchar" MaxLength="100" />
+          <Property Name="Grubu" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bilgilendirme" Type="nvarchar" MaxLength="100" />
+          <Property Name="Atama" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModulYetkisi" Type="nvarchar" MaxLength="100" />
+          <Property Name="KisiselMail" Type="nvarchar" MaxLength="100" />
+          <Property Name="KayitYapanKullanici" Type="nvarchar" MaxLength="100" />
+          <Property Name="KayitTarihi" Type="datetime" />
+          <Property Name="DuzenlemeYapanKullanici" Type="nvarchar" MaxLength="100" />
+          <Property Name="DuzenlemeTarihi" Type="datetime" />
+          <Property Name="Silindi" Type="bit" />
+          <Property Name="SilinenTarih" Type="datetime" />
+          <Property Name="SilenKullanici" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="KullaniciYetkiler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="Modul" Type="nvarchar(max)" />
+          <Property Name="Gor" Type="bit" />
+          <Property Name="Duzenle" Type="bit" />
+          <Property Name="Sil" Type="bit" />
+        </EntityType>
+        <EntityType Name="MailKaliplari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sira" Type="int" />
+          <Property Name="Baslik" Type="nvarchar(max)" />
+          <Property Name="Detay" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Yenilikler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="Aciklama" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_KullaniciYetkiler_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="KullaniciYetkiler" Type="Self.KullaniciYetkiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciYetkiler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyDatabaseModelStoreContainer">
+          <EntitySet Name="GrupKodlari" EntityType="Self.GrupKodlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciYetkiler" EntityType="Self.KullaniciYetkiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailKaliplari" EntityType="Self.MailKaliplari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yenilikler" EntityType="Self.Yenilikler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KullaniciYetkiler_Kullanicilar" Association="Self.FK_KullaniciYetkiler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="KullaniciYetkiler" EntitySet="KullaniciYetkiler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GrupKodlaris" EntityType="MyDatabaseModel.GrupKodlari" />
+          <EntitySet Name="Kullanicilars" EntityType="MyDatabaseModel.Kullanicilar" />
+          <EntitySet Name="KullaniciYetkilers" EntityType="MyDatabaseModel.KullaniciYetkiler" />
+          <EntitySet Name="MailKaliplaris" EntityType="MyDatabaseModel.MailKaliplari" />
+          <EntitySet Name="Yeniliklers" EntityType="MyDatabaseModel.Yenilikler" />
+          <AssociationSet Name="FK_KullaniciYetkiler_Kullanicilar" Association="MyDatabaseModel.FK_KullaniciYetkiler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+            <End Role="KullaniciYetkiler" EntitySet="KullaniciYetkilers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GrupKodlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Anahtar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Deger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Soyadi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SirketTelefonu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Parola" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Aktif" Type="Boolean" />
+          <Property Name="Adres" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DogumTarihi" Type="DateTime" Precision="3" />
+          <Property Name="KisiselTelefon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SirketTelefonKisaKod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zimmet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Grubu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Bilgilendirme" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Atama" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModulYetkisi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KisiselMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KayitYapanKullanici" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KayitTarihi" Type="DateTime" Precision="3" />
+          <Property Name="DuzenlemeYapanKullanici" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DuzenlemeTarihi" Type="DateTime" Precision="3" />
+          <Property Name="Silindi" Type="Boolean" />
+          <Property Name="SilinenTarih" Type="DateTime" Precision="3" />
+          <Property Name="SilenKullanici" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KullaniciYetkilers" Relationship="MyDatabaseModel.FK_KullaniciYetkiler_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciYetkiler" />
+        </EntityType>
+        <EntityType Name="KullaniciYetkiler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <Property Name="Modul" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gor" Type="Boolean" />
+          <Property Name="Duzenle" Type="Boolean" />
+          <Property Name="Sil" Type="Boolean" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MyDatabaseModel.FK_KullaniciYetkiler_Kullanicilar" FromRole="KullaniciYetkiler" ToRole="Kullanicilar" />
+        </EntityType>
+        <EntityType Name="MailKaliplari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sira" Type="Int32" />
+          <Property Name="Baslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Detay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Yenilikler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="Aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_KullaniciYetkiler_Kullanicilar">
+          <End Type="MyDatabaseModel.Kullanicilar" Role="Kullanicilar" Multiplicity="0..1" />
+          <End Type="MyDatabaseModel.KullaniciYetkiler" Role="KullaniciYetkiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciYetkiler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="GrupKodlaris">
+            <EntityTypeMapping TypeName="MyDatabaseModel.GrupKodlari">
+              <MappingFragment StoreEntitySet="GrupKodlari">
+                <ScalarProperty Name="Deger" ColumnName="Deger" />
+                <ScalarProperty Name="Anahtar" ColumnName="Anahtar" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilars">
+            <EntityTypeMapping TypeName="MyDatabaseModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="SilenKullanici" ColumnName="SilenKullanici" />
+                <ScalarProperty Name="SilinenTarih" ColumnName="SilinenTarih" />
+                <ScalarProperty Name="Silindi" ColumnName="Silindi" />
+                <ScalarProperty Name="DuzenlemeTarihi" ColumnName="DuzenlemeTarihi" />
+                <ScalarProperty Name="DuzenlemeYapanKullanici" ColumnName="DuzenlemeYapanKullanici" />
+                <ScalarProperty Name="KayitTarihi" ColumnName="KayitTarihi" />
+                <ScalarProperty Name="KayitYapanKullanici" ColumnName="KayitYapanKullanici" />
+                <ScalarProperty Name="KisiselMail" ColumnName="KisiselMail" />
+                <ScalarProperty Name="ModulYetkisi" ColumnName="ModulYetkisi" />
+                <ScalarProperty Name="Atama" ColumnName="Atama" />
+                <ScalarProperty Name="Bilgilendirme" ColumnName="Bilgilendirme" />
+                <ScalarProperty Name="Grubu" ColumnName="Grubu" />
+                <ScalarProperty Name="Zimmet" ColumnName="Zimmet" />
+                <ScalarProperty Name="SirketTelefonKisaKod" ColumnName="SirketTelefonKisaKod" />
+                <ScalarProperty Name="KisiselTelefon" ColumnName="KisiselTelefon" />
+                <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
+                <ScalarProperty Name="TC" ColumnName="TC" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SirketTelefonu" ColumnName="SirketTelefonu" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciYetkilers">
+            <EntityTypeMapping TypeName="MyDatabaseModel.KullaniciYetkiler">
+              <MappingFragment StoreEntitySet="KullaniciYetkiler">
+                <ScalarProperty Name="Sil" ColumnName="Sil" />
+                <ScalarProperty Name="Duzenle" ColumnName="Duzenle" />
+                <ScalarProperty Name="Gor" ColumnName="Gor" />
+                <ScalarProperty Name="Modul" ColumnName="Modul" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailKaliplaris">
+            <EntityTypeMapping TypeName="MyDatabaseModel.MailKaliplari">
+              <MappingFragment StoreEntitySet="MailKaliplari">
+                <ScalarProperty Name="Detay" ColumnName="Detay" />
+                <ScalarProperty Name="Baslik" ColumnName="Baslik" />
+                <ScalarProperty Name="Sira" ColumnName="Sira" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yeniliklers">
+            <EntityTypeMapping TypeName="MyDatabaseModel.Yenilikler">
+              <MappingFragment StoreEntitySet="Yenilikler">
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

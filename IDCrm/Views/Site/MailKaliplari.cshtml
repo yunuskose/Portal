@@ -1,0 +1,34 @@
+﻿@model List<IDCrm.Models.MailKaliplari>
+@{
+    ViewBag.Title = "Kullanıcı Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (true)
+{
+    <section class="card">
+        <header class="card-header">
+            Mail Kalıpları            
+        </header>
+        <table class="table table-hover" id="dynamic-table1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Başlık</th>
+                    <td>İşlem</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>Mail Kalıbı : @item.ID</td>
+                        <td>@item.Baslik</td>
+                        <td><a href="@Url.Action("MailKalibi", "Site", new { id = item.ID })">Detay</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+}

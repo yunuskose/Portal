@@ -1,0 +1,34 @@
+﻿@model List<IDCrm.Models.GrupKodlari>
+@{
+    ViewBag.Title = "Kullanıcı Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <section class="card">
+        <header class="card-header" >
+            Kayıt Listesi
+            <a href="@Url.Action("GrupKodu","Site",new { id = 0, Anahtar = Request.QueryString["Anahtar"] })" class="btn btn-sm btn-outline-info" style="position: absolute;right:10px;">Yeni</a>
+        </header>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>İsim</th>
+                    <td>İşlem</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Deger</td>
+                    <td><a href="@Url.Action("GrupKodu","Site",new { id = item.ID, Anahtar = Request.QueryString["Anahtar"] })">Detay</a>| <a href="@Url.Action("GrupKoduSil","Site",new { id = item.ID, Anahtar = Request.QueryString["Anahtar"] })" onclick="return confirm('Silmek istediğinizden emin misiniz?')">Sil</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+

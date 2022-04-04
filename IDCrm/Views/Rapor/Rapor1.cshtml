@@ -1,0 +1,109 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DataTable dtDonemler = ViewBag.Donemler as DataTable;
+    DataTable dtProjeKodlari = ViewBag.ProjeKodlari as DataTable;
+    IDCrm.Models.Kullanicilar kullanici = (IDCrm.Models.Kullanicilar)Session["Kullanici"];
+}
+
+
+<section class="card">
+    <header class="card-header">
+        Proje Kar/Zarar Raporu
+    </header>
+
+    <form action="@Url.Content("~/Rapor/Rapor1")" method="post">
+        <table style="margin-top:5px;" class="table">
+            <tr>
+                <td>
+                    <br />
+                    <label style="padding-right:5px;">Dönem</label>
+                    <select id="Donem" name="Donem" style="width:250px;">
+                        <option value="">Tümü]</option>
+                        @foreach (DataRow item in dtDonemler.Rows)
+                        {
+                            if (Convert.ToString(item["Donem"]) == Convert.ToString(ViewBag.Donem))
+                            {
+                                <option value="@item["Donem"]" selected>@item["Donem"]</option>
+                            }
+                            else
+                            {
+                                <option value="@item["Donem"]">@item["Donem"]</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <br />
+                    <label style="padding-right:5px;">Proje</label>
+                    <select id="ProjeKodu" name="ProjeKodu" style="width:250px;">
+                        <option value="">Tümü]</option>
+                        @foreach (DataRow item in dtProjeKodlari.Rows)
+                        {
+                            if (Convert.ToString(item["PROJE_KODU"]) == Convert.ToString(ViewBag.ProjeKodu))
+                            {
+                                <option value="@item["PROJE_KODU"]" selected>@item["PROJE_ACIKLAMA"]</option>
+                            }
+                            else
+                            {
+                                <option value="@item["PROJE_KODU"]">@item["PROJE_ACIKLAMA"]</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td><br /><label style="padding-right:5px;">Açıklama</label><input style="width:400px;" type="text" name="Aciklama" value="@ViewBag.Aciklama" /></td>
+                
+                <td><br /><input type="submit" name="name" value="Getir" class="btn btn-sm btn-outline-info" /></td>
+                
+            </tr>
+        </table>
+    </form>
+    <div style="overflow-x:scroll;width:100%;margin-bottom:20px;">
+        <table class="table table-hover" id="IDSortTable" >
+            <thead>
+                <tr>
+
+                    <th onclick="sortTable(0)">Proje Kodu                   </th>
+                    <th onclick="sortTable(1)">Açıklama                    </th>
+                    <th onclick="sortTable(2)">Dönem                    </th>
+                    <th style="text-align:center;" onclick="sortTable(3)">Hakediş Gelirleri                   </th>
+                    <th style="text-align:center;" onclick="sortTable(4)">Diş.Sağ.Fay.Hizm.                 </th>
+                    <th style="text-align:center;" onclick="sortTable(5)">Genel Giderler                    </th>
+                    <th style="text-align:center;" onclick="sortTable(6)">Bekleyen Sip. Tutarı                    </th>
+                    <th style="text-align:center;" onclick="sortTable(7)">Bekleyen İrs. Tutarı               </th>
+                    <th style="text-align:center;" onclick="sortTable(8)">İlk Madde Malzeme                    </th>
+                    <th style="text-align:center;" onclick="sortTable(9)">DAT Tutar</th>
+                    <th style="text-align:center;" onclick="sortTable(10)">Hakediş Maliyetleri</th>
+                    <th style="text-align:center;" onclick="sortTable(11)">İşçilik Giderleri</th>
+                    <th style="text-align:center;" onclick="sortTable(12)">Finansman Giderleri</th>
+                    <th style="text-align:center;" onclick="sortTable(12)">Sabit Kıymet Demirbaş</th>
+                    <th style="text-align:center;" onclick="sortTable(12)">Kar/Zarar</th>
+                </tr>
+            </thead>
+            @foreach (System.Data.DataRow item in Model.Rows)
+            {
+                <tr>
+                    <td>@item["PROJE_KODU"]</td>
+                    <td>@item["PROJE_ACIKLAMA"]</td>
+                    <td>@item["DONEM"]</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["HAKEDIS_GELIRLERI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["DIS_SAG_FAY_HIZM"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["GENEL_GIDER"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["BEKLEYEN_SIP_TUTARI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["BEKLEYEN_IRS_TUTARI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["ILK_MADDE_MALZEME"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["DAT_TUTAR"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["HAKEDIS_MALIYETLERI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["ISÇILIK_GIDERLERI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["FINANSMAN_GIDERLERI"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["SABIT_KIYMET_DEMIRBAS"]))</td>
+                    <td style="text-align:right;">@String.Format("{0:N2}", Convert.ToDecimal(item["KAR_ZARAR"]))</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>

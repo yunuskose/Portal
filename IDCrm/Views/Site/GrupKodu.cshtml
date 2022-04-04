@@ -1,0 +1,46 @@
+﻿@model IDCrm.Models.GrupKodlari
+@{
+    ViewBag.Title = "Musteri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="card">
+    <div class="card-header">Firma Bilgisi</div>
+    <div class="card-body">
+        <form class="needs-validation" novalidate action="@Url.Action("GrupKodu","Site",null)" method="post">
+            <input type="hidden" name="id" value="@Model.ID" />
+            <input type="hidden" name="Anahtar" value="@Model.Anahtar" />
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">İsim</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="İsim" value="@Model.Deger" name="Deger" required>
+                </div>
+            </div>
+            <div class="form-row">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Kaydet</button>
+        </form>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();</script>
+    </div>
+</section>
+

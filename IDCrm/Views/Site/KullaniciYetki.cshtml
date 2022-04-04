@@ -1,0 +1,81 @@
+﻿@model List<IDCrm.Models.KullaniciYetkiler>
+@{
+    ViewBag.Title = "Musteri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="card">
+    <div class="card-header">Kullanıcı Yetkileri (@ViewBag.KullaniciAdi) </div>
+    <div class="card-body">
+        <form class="needs-validation" novalidate action="@Url.Action("KullaniciYetki","Site",null)" method="post">
+            <input type="hidden" name="id" value="@ViewBag.KullaniciID" />
+            <div class="form-row">
+                <div class="col-md-3 mb-3"></div>
+                <div class="col-md-3 mb-3">Yetki</div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Sayım Girişi</label>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="Sayim_Gor" placeholder="" value="1" name="Sayim_Gor" @(Model.Where((e) => e.Modul == "Sayim" && e.Gor == true).Count() > 0 ? "checked" : "")>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Taşeron Hakedişleri</label>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="TH_Gor" placeholder="" value="1" name="TH_Gor" @(Model.Where((e) => e.Modul == "TH" && e.Gor == true).Count() > 0 ? "checked" : "")>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Proje Kar Zarar Raporu</label>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="ProjeKarZarar_Gor" placeholder="" value="1" name="ProjeKarZarar_Gor" @(Model.Where((e) => e.Modul == "ProjeKarZarar" && e.Gor == true).Count() > 0 ? "checked" : "")>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Kullanıcı Listesi</label>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="KullaniciListesi_Gor" placeholder="" value="1" name="KullaniciListesi_Gor" @(Model.Where((e) => e.Modul == "KullaniciListesi" && e.Gor == true).Count() > 0 ? "checked" : "")>
+                </div>
+            </div>
+
+            <div class="form-row">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Kaydet</button>
+        </form>
+        <script>
+
+
+
+
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();</script>
+    </div>
+</section>
+

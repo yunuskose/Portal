@@ -1,0 +1,92 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DataTable dtDonemler = ViewBag.Donemler as DataTable;
+    DataTable dtProjeKodlari = ViewBag.ProjeKodlari as DataTable;
+    DataTable dtSayim = ViewBag.Sayim as DataTable;
+    
+    IDCrm.Models.Kullanicilar kullanici = (IDCrm.Models.Kullanicilar)Session["Kullanici"];
+}
+
+<section class="card">
+    <header class="card-header">
+        Taşeron Hakedişi
+
+        <a href="@Url.Action("THGirisi","Rapor",new { id = 0 })" class="btn btn-sm btn-outline-info" style="position: absolute;right:10px;">Yeni Hakediş Girişi</a>
+    </header>
+    <form action="@Url.Content("~/Rapor/THGirisi")" method="post">
+        <input type="hidden" name="ID" id="ID" value="@ViewBag.ID" />
+        <table class="table">
+            <tr>
+                <td>Dönem</td>
+                <td>:</td>
+                <td>
+                    <select id="Donem" name="Donem">
+                        @foreach (DataRow item in dtDonemler.Rows)
+                        {
+                            if (dtSayim.Rows.Count > 0)
+                            {
+                                if (Convert.ToString(item["Donem"]) == Convert.ToString(dtSayim.Rows[0]["Donem"]))
+                                {
+                        <option value="@item["Donem"]" selected>@item["Donem"]</option>
+                                }
+                                else
+                                {
+                                    <option value="@item["Donem"]">@item["Donem"]</option>
+                                }
+                            }
+                            else
+                            {
+                                    <option value="@item["Donem"]">@item["Donem"]</option>
+                            }
+                            
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Proje Kodu</td>
+                <td>:</td>
+                <td>
+                    <select id="ProjeKodu" name="ProjeKodu">
+                        @foreach (DataRow item in dtProjeKodlari.Rows)
+                        {
+                            if (dtSayim.Rows.Count > 0)
+                            {
+                                if (Convert.ToString(item["PROJE_KODU"]) == Convert.ToString(dtSayim.Rows[0]["ProjeKodu"]))
+                                {
+                                    <option value="@item["PROJE_KODU"]" selected>@item["PROJE_ACIKLAMA"]</option>
+                                }
+                                else
+                                {
+                                    <option value="@item["PROJE_KODU"]">@item["PROJE_ACIKLAMA"]</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="@item["PROJE_KODU"]">@item["PROJE_ACIKLAMA"]</option>
+                            }
+                        }
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Tutar</td>
+                <td>:</td>
+                <td><input type="text" name="Tutar" id="Tutar" value="@(dtSayim.Rows.Count > 0 ? dtSayim.Rows[0]["Tutar"] : "0")"  style="text-align:right;"/></td>
+            </tr>
+            <tr>
+                <td>Açıklama</td>
+                <td>:</td>
+                <td><input type="text" name="Aciklama" id="Aciklama" value="@(dtSayim.Rows.Count > 0 ? dtSayim.Rows[0]["Aciklama"] : "")" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="name" value="Kaydet" /></td>
+            </tr>
+        </table>
+    </form>
+
+</section>

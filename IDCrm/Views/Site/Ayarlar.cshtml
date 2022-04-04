@@ -1,0 +1,83 @@
+﻿@model List<IDCrm.Models.GrupKodlari>
+@{
+    ViewBag.Title = "Musteri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="card">
+    <div class="card-header">Ayarlar</div>
+    <div class="card-body">
+        <form class="needs-validation" novalidate action="@Url.Action("Ayarlar","Site",null)" method="post">
+            <input type="hidden"     name="id" value="0" />
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Mail Server </label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MailServer").FirstOrDefault().Deger" name="MailServer" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Mail Kullanıcı Adı</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MailKullaniciAdi").FirstOrDefault().Deger" name="MailKullaniciAdi" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Mail Parola</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MailParola").FirstOrDefault().Deger" name="MailParola" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Mail Port</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MailPort").FirstOrDefault().Deger" name="MailPort" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Mail SSL</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MailSSL").FirstOrDefault().Deger" name="MailSSL" required>
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Yönetim Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "YonetimMailAdresi").FirstOrDefault().Deger" name="YonetimMailAdresi" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Bakım Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "BakimMailAdresi").FirstOrDefault().Deger" name="BakimMailAdresi" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Bilgi İşlem Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "ITMailAdresi").FirstOrDefault().Deger" name="ITMailAdresi" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Sekreter Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "SekreterMailAdresi").FirstOrDefault().Deger" name="SekreterMailAdresi" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Muhasebe Mail Adresi</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="" value="@Model.Where((a)=>a.Anahtar == "MuhasebeMailAdresi").FirstOrDefault().Deger" name="MuhasebeMailAdresi" required>
+                </div>
+            </div>
+            <div class="form-row">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Kaydet</button>
+        </form>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();</script>
+    </div>
+</section>
+
